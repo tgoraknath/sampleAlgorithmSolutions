@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.walmart.wls</groupId>
+  <artifactId>wlsvcs-parent-pom</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>White Label Sourcing Services and backend Jobs</name>
+  <packaging>pom</packaging>
+  <modules>
+    <module>wlsvcs-dto</module>
+    <module>wlsvcs-app</module>
+  </modules>
+  <scm>
+    <connection>scm:git:git@gecgithub01.walmart.com:gtulla/WhiteLabelServices.git</connection>
+    <developerConnection>scm:git:git@gecgithub01.walmart.com:gtulla/WhiteLabelServices.git</developerConnection>
+    <url>scm:git:git@gecgithub01.walmart.com:gtulla/WhiteLabelServices.git</url>
+    <tag>HEAD</tag>
+  </scm>
+  <distributionManagement>
+    <repository>
+      <id>pangaea_releases</id>
+      <url>http://gec-maven-nexus.walmart.com/nexus/content/repositories/pangaea_releases</url>
+      <uniqueVersion>true</uniqueVersion>
+    </repository>
+    <snapshotRepository>
+      <id>pangaea_snapshots</id>
+      <url>http://gec-maven-nexus.walmart.com/nexus/content/repositories/pangaea_snapshots</url>
+      <uniqueVersion>false</uniqueVersion>
+    </snapshotRepository>
+  </distributionManagement>
+  <properties>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <jax-rs.version>1.1.1</jax-rs.version>
+    <jackson-datatype-guava.version>1.9.1</jackson-datatype-guava.version>
+    <testng.version>6.8</testng.version>
+    <spring.version>4.2.6.RELEASE</spring.version>
+    <platform.soari.version>5.0.22</platform.soari.version>
+    
+    <scm.url>scm:git:git@gecgithub01.walmart.com:platform/strati-boms.git</scm.url>
+    <!-- Core Strati Libs -->
+    <version.logging.slf4j.impl>3.1.0</version.logging.slf4j.impl>
+    <strati-enterprise-server-bom.version>1.0.35</strati-enterprise-server-bom.version>
+
+    <hibernate.jpa.api.version>1.0.1.Final</hibernate.jpa.api.version>
+    <querydsl.version>2.8.0</querydsl.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.strati</groupId>
+        <artifactId>strati-af-tomcat7-bom</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.strati</groupId>
+        <artifactId>strati-af-spring4-bom</artifactId>
+        <version>3.0.0-SNAPSHOT</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-jaxrs</artifactId>
+        <version>1.9.2</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-datatype-guava</artifactId>
+        <version>1.9.1</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-xc</artifactId>
+        <version>1.9.2</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.hibernate.javax.persistence</groupId>
+        <artifactId>hibernate-jpa-2.0-api</artifactId>
+        <version>${hibernate.jpa.api.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.mysema.querydsl</groupId>
+        <artifactId>querydsl-apt</artifactId>
+        <version>${querydsl.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.mysema.querydsl</groupId>
+        <artifactId>querydsl-jpa</artifactId>
+        <version>${querydsl.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>${testng.version}</version>
+        <scope>test</scope>
+        <exclusions>
+          <exclusion>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+        <scope>test</scope>
+        <version>${spring.version}</version>
+      </dependency>
+
+
+    </dependencies>
+  </dependencyManagement>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.4.1</version>
+        <dependencies>
+          <dependency>
+            <groupId>com.walmart.platform.devtools</groupId>
+            <artifactId>release-enforcer-client</artifactId>
+            <version>0.2.1</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>enforce-versions</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+              <rules>
+                <JdkCompilerCompatibilityRule implementation="com.walmart.platform.devtools.release_enforcer_client.maven.enforcer.rule.JdkCompilerCompatibilityRule" />
+                <blacklistRule implementation="com.walmart.platform.devtools.release_enforcer_client.maven.enforcer.rule.BlacklistRule">
+                  <isSkippableRule>false</isSkippableRule>
+                </blacklistRule>
+                <pppVersionRule implementation="com.walmart.platform.devtools.release_enforcer_client.maven.enforcer.rule.PlatformParentPomVersionRule" />
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+ <!--
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.1</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <configuration>
+              <additionalparam>-Xdoclint:none</additionalparam>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin> -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.2</version>
+      </plugin>
+    </plugins>
+  </build>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>nexus_plugin_release</id>
+      <url>http://gec-maven-nexus.walmart.com/nexus/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
+</project>

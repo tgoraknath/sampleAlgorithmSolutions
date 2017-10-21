@@ -1,0 +1,232 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+     <groupId>com.walmart.wls</groupId>
+     <artifactId>wlsvcs-parent-pom</artifactId>
+     <relativePath>../pom.xml</relativePath>
+     <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>wlsvcs-app</artifactId>
+  <name>Pangaea White Label RESTful Services</name>
+  <packaging>war</packaging>
+  
+    <properties>
+        <derby.version>10.12.1.1</derby.version>
+<!--		 <forklift.version>3.0.14-SNAPSHOT</forklift.version>
+        
+        <strati.spi.version>1.0.40</strati.spi.version>
+        <strati.impl.version>1.0.48</strati.impl.version>
+ -->        
+ 		<strati-af-bom-version>3.0.0-SNAPSHOT</strati-af-bom-version>
+        <hibernate.jpa.api.version>1.0.1.Final</hibernate.jpa.api.version>
+        <querydsl.version>2.8.0</querydsl.version>
+    </properties>
+    
+  	<dependencies>
+  		<dependency>
+			<groupId>com.walmart.wls</groupId>
+			<artifactId>wlsvcs-dto</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-log4j12</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+  		</dependency>
+  		
+  		<dependency>
+            <groupId>io.strati</groupId>
+            <artifactId>strati-af-tomcat7-bom</artifactId>
+            <version>${strati-af-bom-version}</version>
+            <type>pom</type>
+            <scope>compile</scope>
+        </dependency>
+<!-- 
+       <dependency>
+            <groupId>com.walmart.strati.forklift</groupId>
+            <artifactId>forklift-jpa</artifactId>
+            <version>${forklift.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.walmart.strati.forklift</groupId>
+            <artifactId>forklift-search-impl</artifactId>
+            <version>${forklift.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.strati</groupId>
+            <artifactId>strati-persistence-api</artifactId>
+            <version>${forklift.version}</version>
+        </dependency>
+         -->
+
+<!--         <dependency>
+            <groupId>io.strati</groupId>
+            <artifactId>strati-spi</artifactId>
+            <version>${strati.spi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.strati</groupId>
+            <artifactId>strati-impl</artifactId>
+            <version>1.0.41</version>
+        </dependency>
+ -->
+
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>${derby.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyclient</artifactId>
+            <version>${derby.version}</version>
+        </dependency>
+
+<!--  -->
+		<dependency>
+		    <groupId>org.hibernate.javax.persistence</groupId>
+		     <artifactId>hibernate-jpa-2.0-api</artifactId>
+		 </dependency>
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+        </dependency>
+<!-- 
+        <dependency>
+            <groupId>io.strati</groupId>
+            <artifactId>strati-datastore-api</artifactId>
+            <version>${forklift.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.walmart.strati.forklift</groupId>
+            <artifactId>forklift-datastore-impl</artifactId>
+            <version>${forklift.version}</version>
+        </dependency>
+  	 -->	
+<!-- <dependency>
+  <groupId>io.strati</groupId>
+  <artifactId>strati-enterprise-server7-bom</artifactId>
+  <type>pom</type>
+</dependency>
+ -->  
+ <!-- 
+  <dependency>
+    	<groupId>org.codehaus.jackson</groupId>
+    	<artifactId>jackson-jaxrs</artifactId>
+  </dependency>  -->
+
+  <!-- This can be uncommented when you start using io.strati:strati-af-boms:3.x.x version -->
+  <!--  -->
+  <dependency>
+    <groupId>io.strati</groupId>
+    <artifactId>strati-af-spring4-bom</artifactId>
+    <version>${strati-af-bom-version}</version>
+    <type>pom</type>
+  </dependency> 
+ 
+  <!-- Comment below 2 dependencies as soon as start depending upon io.strati:strati-af-boms:3.x.x version --> 
+  <!-- 
+  <dependency>
+    <groupId>io.strati</groupId>
+    <artifactId>strati-af-spring</artifactId>
+    <version>2.0.11</version>
+  </dependency>
+ <dependency>
+    <groupId>io.strati</groupId>
+    <artifactId>strati-af-ccm-client-spring</artifactId>
+    <version>7.0.1</version>
+  </dependency> 
+
+	<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+	</dependency>  --> 
+		
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<!--<version>2.0-m10</version>-->
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+ 		 <groupId>org.apache.cxf</groupId>
+  		 <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+ 		 <!--<version>2.4.0</version>-->
+			<version>3.1.7</version>
+ 		 <exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency> 
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+  	</dependencies>
+ 	<build>
+		<finalName>wlsvcs-app</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<!-- http port -->
+					<port>8082</port>
+					<!-- application path always starts with / -->	
+					<path>/</path>
+					<!-- optional system properties you want to add -->
+					<systemProperties>
+						<log4j.skipJansi>true</log4j.skipJansi>
+						<com.walmart.platform.config.runOnEnv>local</com.walmart.platform.config.runOnEnv>
+						<runtime.context.system.property.override.enabled>true</runtime.context.system.property.override.enabled>
+						<runtime.context.environmentType>local</runtime.context.environmentType>
+						<runtime.context.environment>local</runtime.context.environment>
+						<runtime.context.appName>${project.artifactId}</runtime.context.appName>
+						<runtime.context.appVersion>${project.version}</runtime.context.appVersion>
+						<runtime.context.computeID>123</runtime.context.computeID>
+						<runtime.context.cloud>example</runtime.context.cloud>
+						<runtime.context.computeName>localhost</runtime.context.computeName>
+						<runtime.context.hostname>localhost</runtime.context.hostname>
+						<scm.server.access.enabled>false</scm.server.access.enabled>
+						<scm.snapshot.enabled>false</scm.snapshot.enabled>
+						<!-- <JAVA_OPTS>-XX:MaxPermSize=1024m -Xmx2048m -Xms1024m</JAVA_OPTS> -->
+					</systemProperties>
+					<!-- if you want to use test dependencies rather than only runtime -->
+
+					<useTestClasspath>false</useTestClasspath>
+					<!-- optional if you want to add some extra directories into the class loader -->
+					<additionalClasspathDirs>
+						<additionalClasspathDir />
+					</additionalClasspathDirs>
+				</configuration>
+			</plugin>
+		</plugins>
+		</build> 
+</project>
